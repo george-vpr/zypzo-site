@@ -20,32 +20,22 @@ export function Hero() {
       <div className="relative w-full px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           
-          {/* Navigation - Logo Left, Hamburger Right */}
-          <nav className="relative flex items-center justify-between py-4 md:py-6">
+          {/* Navigation - Fixed Layout: Logo Left, Links/Hamburger Right */}
+          <nav className="flex items-center justify-between py-6 relative z-50">
             
-            {/* Left: Logo */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-              className="flex-shrink-0"
-            >
+            {/* Logo (Left) */}
+            <div className="flex-shrink-0">
               <Image
                 src="/zypzo-yellow-logo.png"
                 alt="Zypzo"
                 width={120}
                 height={40}
-                className="h-8 md:h-10 w-auto"
+                className="h-10 w-auto"
               />
-            </motion.div>
+            </div>
 
-            {/* Right: Desktop Links & Button */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="hidden md:flex items-center gap-6"
-            >
+            {/* Desktop Navigation (Right) */}
+            <div className="hidden md:flex items-center gap-6">
               <a
                 href="#how-it-works"
                 className="text-sm text-muted-foreground transition-colors hover:text-card-foreground"
@@ -61,17 +51,15 @@ export function Hero() {
               <button className="rounded-full bg-yellow-400 px-5 py-2.5 text-sm font-semibold text-dark-400 transition-all hover:bg-yellow-300 hover:shadow-lg hover:shadow-yellow-400/20">
                 Get started
               </button>
-            </motion.div>
-
-            {/* Right: Mobile Hamburger */}
-            <div className="flex md:hidden">
-              <button 
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="p-2 -mr-2 text-card-foreground hover:text-yellow-400 transition-colors z-50"
-              >
-                {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-              </button>
             </div>
+
+            {/* Mobile Hamburger (Right) */}
+            <button 
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="flex md:hidden p-2 text-card-foreground hover:text-yellow-400 transition-colors"
+            >
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
           </nav>
 
           {/* Mobile Menu Overlay - Visible on click */}
@@ -79,13 +67,12 @@ export function Hero() {
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              className="absolute top-full left-0 right-0 z-40 bg-dark-200 border-b border-border p-6 md:hidden shadow-xl"
+              className="absolute top-[88px] left-0 right-0 z-40 bg-dark-200/95 backdrop-blur-lg p-6 border-b border-border md:hidden shadow-2xl"
             >
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-6">
                 <a href="#how-it-works" className="text-lg text-card-foreground hover:text-yellow-400" onClick={() => setIsMenuOpen(false)}>How it works</a>
                 <a href="#features" className="text-lg text-card-foreground hover:text-yellow-400" onClick={() => setIsMenuOpen(false)}>Features</a>
-                <button className="mt-2 w-full rounded-full bg-yellow-400 px-5 py-3 text-base font-semibold text-dark-400">
+                <button className="w-full rounded-full bg-yellow-400 py-3 text-dark-400 font-semibold">
                   Get started
                 </button>
               </div>
@@ -182,17 +169,20 @@ export function Hero() {
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="relative block mt-10 lg:mt-0 pb-10"
+              className="relative w-full flex flex-col items-center lg:block mt-10 lg:mt-0 pb-10"
             >
-              <div className="relative flex flex-col items-center lg:block">
+              
+              {/* Logic: We use a flex-col layout for mobile to stack them, and absolute positioning for desktop. */}
+              
+              <div className="relative w-full max-w-md mx-auto lg:max-w-none">
                 
-                {/* 1. Floating Status Card ("Task Completed") */}
-                {/* Mobile: Stacks first, pulls up over Main Card (z-30) */}
-                {/* Desktop: Absolute Top Right, safe positioning (z-30) */}
+                {/* 1. Task Completed Card (Top/Right) */}
+                {/* Mobile: Order 1 (Top), pulls bottom up to overlap */}
+                {/* Desktop: Absolute Top Right, z-20 to be above Active Tasks */}
                 <motion.div
                   animate={{ y: [0, -15, 0] }}
                   transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                  className="glass-card-light relative z-30 order-1 lg:order-none mb-[-30px] lg:mb-0 mx-auto w-full max-w-xs lg:absolute lg:top-8 lg:right-0 rounded-2xl p-4"
+                  className="glass-card-light relative z-20 order-1 lg:order-none mb-[-40px] lg:mb-0 mx-auto w-[90%] max-w-xs lg:absolute lg:top-8 lg:right-0 lg:w-auto rounded-2xl p-4"
                 >
                   <div className="flex items-center gap-3">
                     <div className="flex h-12 w-12 items-center justify-center rounded-full bg-yellow-400">
@@ -207,13 +197,13 @@ export function Hero() {
                   </div>
                 </motion.div>
 
-                {/* 2. Main Card ("Active Tasks") */}
-                {/* Mobile: Middle layer (z-20) */}
-                {/* Desktop: Base layer (z-20) */}
+                {/* 2. Main Active Tasks Card (Center) */}
+                {/* Mobile: Order 2 (Middle), lowest z-index so others overlap it */}
+                {/* Desktop: Relative Center, z-10 */}
                 <motion.div
                   animate={{ y: [0, -10, 0] }}
                   transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                  className="glass-card glow-yellow relative z-20 order-2 lg:order-none rounded-3xl p-6 w-full max-w-md mx-auto lg:max-w-none lg:mx-0"
+                  className="glass-card glow-yellow relative z-10 order-2 lg:order-none rounded-3xl p-6 w-full mx-auto"
                 >
                   <div className="mb-4 flex items-center justify-between">
                     <span className="text-sm font-medium text-card-foreground">
@@ -248,13 +238,13 @@ export function Hero() {
                   </div>
                 </motion.div>
 
-                {/* 3. Floating Chat Card ("Priya Sharma") */}
-                {/* Mobile: Stacks last, pulls up over Main Card bottom (z-40) */}
-                {/* Desktop: Absolute Bottom Left, on top of Main Card (z-40) */}
+                {/* 3. Priya Sharma Card (Bottom/Left) */}
+                {/* Mobile: Order 3 (Bottom), pulls top up to overlap */}
+                {/* Desktop: Absolute Bottom Left, z-20 to be above Active Tasks */}
                 <motion.div
                   animate={{ y: [0, 10, 0] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                  className="glass-card relative z-40 order-3 lg:order-none mt-[-40px] lg:mt-0 mx-auto w-[90%] max-w-xs rounded-2xl p-4 lg:absolute lg:bottom-[-20px] lg:left-20"
+                  className="glass-card relative z-20 order-3 lg:order-none mt-[-40px] lg:mt-0 mx-auto w-[90%] max-w-xs lg:absolute lg:bottom-8 lg:left-0 lg:w-auto rounded-2xl p-4"
                 >
                   <div className="mb-3 flex items-center gap-3">
                     <div className="h-10 w-10 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600" />
