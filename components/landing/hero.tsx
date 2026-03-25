@@ -6,7 +6,7 @@ import Image from "next/image"
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen overflow-hidden">
+    <section className="relative min-h-screen overflow-visible">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-dark-400 via-dark-300 to-dark-400" />
       
@@ -221,7 +221,7 @@ export function Hero() {
                   ease: "easeInOut",
                   delay: 1,
                 }}
-                className="glass-card absolute -bottom-10 -left-20 z-30 w-72 rounded-2xl p-4"
+                className="glass-card absolute bottom-[-20px] left-1/2 -translate-x-1/2 lg:-left-20 lg:translate-x-0 z-30 w-72 rounded-2xl p-4"
               >
                 <div className="mb-3 flex items-center gap-3">
                   <div className="h-10 w-10 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600" />
