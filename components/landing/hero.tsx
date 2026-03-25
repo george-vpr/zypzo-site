@@ -20,93 +20,74 @@ export function Hero() {
       <div className="relative w-full px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           
-          {/* Navigation - Fixed Centering & Functional Menu */}
-          <nav className="relative grid grid-cols-3 items-center py-4 md:py-6">
+          {/* Navigation - Logo Left, Hamburger Right */}
+          <nav className="relative flex items-center justify-between py-4 md:py-6">
             
-            {/* Left: Hamburger (Mobile) / Logo (Desktop) */}
-            <div className="flex items-center justify-start z-30">
-              {/* Mobile Hamburger */}
-              <button 
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="p-2 -ml-2 text-card-foreground hover:text-yellow-400 transition-colors md:hidden"
-              >
-                {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-              </button>
+            {/* Left: Logo */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              className="flex-shrink-0"
+            >
+              <Image
+                src="/zypzo-yellow-logo.png"
+                alt="Zypzo"
+                width={120}
+                height={40}
+                className="h-8 md:h-10 w-auto"
+              />
+            </motion.div>
 
-              {/* Desktop Logo */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
-                className="hidden md:block"
-              >
-                <Image
-                  src="/zypzo-yellow-logo.png"
-                  alt="Zypzo"
-                  width={120}
-                  height={40}
-                  className="h-10 w-auto"
-                />
-              </motion.div>
-            </div>
-
-            {/* Center: Mobile Logo (Perfectly Centered) */}
-            <div className="flex items-center justify-center md:hidden">
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="flex-shrink-0"
-              >
-                <Image
-                  src="/zypzo-yellow-logo.png"
-                  alt="Zypzo"
-                  width={120}
-                  height={40}
-                  className="h-8 w-auto"
-                />
-              </motion.div>
-            </div>
-
-            {/* Right: Button & Links */}
+            {/* Right: Desktop Links & Button */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="flex items-center justify-end gap-4 md:gap-6 z-30"
+              className="hidden md:flex items-center gap-6"
             >
-              {/* Desktop Links */}
-              <div className="hidden md:flex items-center gap-6">
-                <a
-                  href="#how-it-works"
-                  className="text-sm text-muted-foreground transition-colors hover:text-card-foreground"
-                >
-                  How it works
-                </a>
-                <a
-                  href="#features"
-                  className="text-sm text-muted-foreground transition-colors hover:text-card-foreground"
-                >
-                  Features
-                </a>
-              </div>
-              
-              <button className="rounded-full bg-yellow-400 px-4 py-2 text-xs sm:text-sm font-semibold text-dark-400 transition-all hover:bg-yellow-300 hover:shadow-lg hover:shadow-yellow-400/20 whitespace-nowrap">
+              <a
+                href="#how-it-works"
+                className="text-sm text-muted-foreground transition-colors hover:text-card-foreground"
+              >
+                How it works
+              </a>
+              <a
+                href="#features"
+                className="text-sm text-muted-foreground transition-colors hover:text-card-foreground"
+              >
+                Features
+              </a>
+              <button className="rounded-full bg-yellow-400 px-5 py-2.5 text-sm font-semibold text-dark-400 transition-all hover:bg-yellow-300 hover:shadow-lg hover:shadow-yellow-400/20">
                 Get started
               </button>
             </motion.div>
+
+            {/* Right: Mobile Hamburger */}
+            <div className="flex md:hidden">
+              <button 
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="p-2 -mr-2 text-card-foreground hover:text-yellow-400 transition-colors z-50"
+              >
+                {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              </button>
+            </div>
           </nav>
 
-          {/* Mobile Menu Overlay */}
+          {/* Mobile Menu Overlay - Visible on click */}
           {isMenuOpen && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="absolute top-full left-0 right-0 z-20 bg-dark-300/95 backdrop-blur-lg p-6 border-b border-border md:hidden"
+              className="absolute top-full left-0 right-0 z-40 bg-dark-200 border-b border-border p-6 md:hidden shadow-xl"
             >
               <div className="flex flex-col gap-4">
-                <a href="#how-it-works" className="text-lg text-card-foreground" onClick={() => setIsMenuOpen(false)}>How it works</a>
-                <a href="#features" className="text-lg text-card-foreground" onClick={() => setIsMenuOpen(false)}>Features</a>
+                <a href="#how-it-works" className="text-lg text-card-foreground hover:text-yellow-400" onClick={() => setIsMenuOpen(false)}>How it works</a>
+                <a href="#features" className="text-lg text-card-foreground hover:text-yellow-400" onClick={() => setIsMenuOpen(false)}>Features</a>
+                <button className="mt-2 w-full rounded-full bg-yellow-400 px-5 py-3 text-base font-semibold text-dark-400">
+                  Get started
+                </button>
               </div>
             </motion.div>
           )}
@@ -205,11 +186,34 @@ export function Hero() {
             >
               <div className="relative flex flex-col items-center lg:block">
                 
-                {/* Main card */}
+                {/* 1. Floating Status Card ("Task Completed") */}
+                {/* Mobile: Stacks first, pulls up over Main Card (z-30) */}
+                {/* Desktop: Absolute Top Right, safe positioning (z-30) */}
+                <motion.div
+                  animate={{ y: [0, -15, 0] }}
+                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                  className="glass-card-light relative z-30 order-1 lg:order-none mb-[-30px] lg:mb-0 mx-auto w-full max-w-xs lg:absolute lg:top-8 lg:right-0 rounded-2xl p-4"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-yellow-400">
+                      <svg className="h-6 w-6 text-dark-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <div>
+                      <div className="text-sm font-medium text-card-foreground">Task Completed</div>
+                      <div className="text-xs text-muted-foreground">2 minutes ago</div>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* 2. Main Card ("Active Tasks") */}
+                {/* Mobile: Middle layer (z-20) */}
+                {/* Desktop: Base layer (z-20) */}
                 <motion.div
                   animate={{ y: [0, -10, 0] }}
                   transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                  className="glass-card glow-yellow relative z-20 rounded-3xl p-6 w-full max-w-md mx-auto lg:max-w-none lg:mx-0"
+                  className="glass-card glow-yellow relative z-20 order-2 lg:order-none rounded-3xl p-6 w-full max-w-md mx-auto lg:max-w-none lg:mx-0"
                 >
                   <div className="mb-4 flex items-center justify-between">
                     <span className="text-sm font-medium text-card-foreground">
@@ -220,7 +224,6 @@ export function Hero() {
                     </span>
                   </div>
 
-                  {/* Task cards */}
                   <div className="space-y-3">
                     {[
                       { title: "Website Redesign", category: "Design", price: "₹45,000", status: "In Progress" },
@@ -245,30 +248,13 @@ export function Hero() {
                   </div>
                 </motion.div>
 
-                {/* Floating status card - FIXED: Increased z-index to 30 & adjusted position */}
-                <motion.div
-                  animate={{ y: [0, -15, 0] }}
-                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                  className="glass-card-light relative z-30 mt-8 mx-auto w-full max-w-xs lg:absolute lg:top-8 lg:-right-16 lg:mt-0 lg:w-auto rounded-2xl p-4"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-yellow-400">
-                      <svg className="h-6 w-6 text-dark-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <div>
-                      <div className="text-sm font-medium text-card-foreground">Task Completed</div>
-                      <div className="text-xs text-muted-foreground">2 minutes ago</div>
-                    </div>
-                  </div>
-                </motion.div>
-
-                {/* Floating chat card - Added negative margin for overlap on mobile */}
+                {/* 3. Floating Chat Card ("Priya Sharma") */}
+                {/* Mobile: Stacks last, pulls up over Main Card bottom (z-40) */}
+                {/* Desktop: Absolute Bottom Left, on top of Main Card (z-40) */}
                 <motion.div
                   animate={{ y: [0, 10, 0] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                  className="glass-card relative z-10 -mt-16 mx-auto w-[90%] max-w-xs rounded-2xl p-4 lg:absolute lg:bottom-[-20px] lg:left-20 lg:translate-x-0 lg:mt-0"
+                  className="glass-card relative z-40 order-3 lg:order-none mt-[-40px] lg:mt-0 mx-auto w-[90%] max-w-xs rounded-2xl p-4 lg:absolute lg:bottom-[-20px] lg:left-20"
                 >
                   <div className="mb-3 flex items-center gap-3">
                     <div className="h-10 w-10 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600" />
