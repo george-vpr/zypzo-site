@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion"
-import { ArrowRight, Sparkles, Menu } from "lucide-react" // Added Menu icon
+import { ArrowRight, Sparkles, Menu, X } from "lucide-react"
 import Image from "next/image"
 import { useState } from "react"
 
@@ -20,41 +20,59 @@ export function Hero() {
       <div className="relative w-full px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           
-          {/* Navigation - Fixed Layout */}
-          <nav className="flex items-center justify-between py-4 md:py-6 relative">
+          {/* Navigation - Fixed Centering & Functional Menu */}
+          <nav className="relative grid grid-cols-3 items-center py-4 md:py-6">
             
-            {/* Left: Hamburger (Mobile only) */}
-            <div className="flex md:hidden z-10">
+            {/* Left: Hamburger (Mobile) / Logo (Desktop) */}
+            <div className="flex items-center justify-start z-30">
+              {/* Mobile Hamburger */}
               <button 
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="p-2 -ml-2 text-card-foreground hover:text-yellow-400 transition-colors"
+                className="p-2 -ml-2 text-card-foreground hover:text-yellow-400 transition-colors md:hidden"
               >
-                <Menu className="h-6 w-6" />
+                {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </button>
+
+              {/* Desktop Logo */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5 }}
+                className="hidden md:block"
+              >
+                <Image
+                  src="/zypzo-yellow-logo.png"
+                  alt="Zypzo"
+                  width={120}
+                  height={40}
+                  className="h-10 w-auto"
+                />
+              </motion.div>
             </div>
 
-            {/* Center: Logo (Absolute on mobile to center correctly) */}
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="absolute left-1/2 transform -translate-x-1/2 md:relative md:left-0 md:transform-none flex-shrink-0"
-            >
-              <Image
-                src="/zypzo-yellow-logo.png"
-                alt="Zypzo"
-                width={120}
-                height={40}
-                className="h-8 md:h-10 w-auto"
-              />
-            </motion.div>
+            {/* Center: Mobile Logo (Perfectly Centered) */}
+            <div className="flex items-center justify-center md:hidden">
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="flex-shrink-0"
+              >
+                <Image
+                  src="/zypzo-yellow-logo.png"
+                  alt="Zypzo"
+                  width={120}
+                  height={40}
+                  className="h-8 w-auto"
+                />
+              </motion.div>
+            </div>
 
-            {/* Right: Links and Button */}
+            {/* Right: Button & Links */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="flex items-center gap-2 sm:gap-4 md:gap-6 z-10"
+              className="flex items-center justify-end gap-4 md:gap-6 z-30"
             >
               {/* Desktop Links */}
               <div className="hidden md:flex items-center gap-6">
@@ -78,11 +96,25 @@ export function Hero() {
             </motion.div>
           </nav>
 
+          {/* Mobile Menu Overlay */}
+          {isMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="absolute top-full left-0 right-0 z-20 bg-dark-300/95 backdrop-blur-lg p-6 border-b border-border md:hidden"
+            >
+              <div className="flex flex-col gap-4">
+                <a href="#how-it-works" className="text-lg text-card-foreground" onClick={() => setIsMenuOpen(false)}>How it works</a>
+                <a href="#features" className="text-lg text-card-foreground" onClick={() => setIsMenuOpen(false)}>Features</a>
+              </div>
+            </motion.div>
+          )}
+
           {/* Hero content */}
           <div className="grid min-h-[calc(100vh-100px)] items-center gap-12 py-12 lg:py-20 lg:grid-cols-2 lg:gap-20">
             
             {/* Left side - Text */}
-            {/* Added text-center for mobile, left for desktop */}
             <div className="relative z-10 text-center lg:text-left">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -113,8 +145,7 @@ export function Hero() {
                 transition={{ duration: 0.6, delay: 0.4 }}
                 className="mt-6 max-w-lg mx-auto lg:mx-0 text-lg leading-relaxed text-muted-foreground md:text-xl"
               >
-                Hire instantly, schedule ahead, or build long-term working
-                relationships — all in one place.
+                Hire instantly, schedule ahead, or build long-term working relationships — all in one place.
               </motion.p>
 
               <motion.p
@@ -172,7 +203,6 @@ export function Hero() {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="relative block mt-10 lg:mt-0 pb-10"
             >
-              {/* Changed to flex-col on mobile to prevent cutoff */}
               <div className="relative flex flex-col items-center lg:block">
                 
                 {/* Main card */}
@@ -193,45 +223,21 @@ export function Hero() {
                   {/* Task cards */}
                   <div className="space-y-3">
                     {[
-                      {
-                        title: "Website Redesign",
-                        category: "Design",
-                        price: "₹45,000",
-                        status: "In Progress",
-                      },
-                      {
-                        title: "Mobile App Development",
-                        category: "Development",
-                        price: "₹1,50,000",
-                        status: "Review",
-                      },
-                      {
-                        title: "Brand Identity",
-                        category: "Design",
-                        price: "₹75,000",
-                        status: "Matched",
-                      },
+                      { title: "Website Redesign", category: "Design", price: "₹45,000", status: "In Progress" },
+                      { title: "Mobile App Development", category: "Development", price: "₹1,50,000", status: "Review" },
+                      { title: "Brand Identity", category: "Design", price: "₹75,000", status: "Matched" },
                     ].map((task, i) => (
-                      <div
-                        key={i}
-                        className="rounded-xl bg-dark-100 p-4 transition-all hover:bg-dark-50"
-                      >
+                      <div key={i} className="rounded-xl bg-dark-100 p-4 transition-all hover:bg-dark-50">
                         <div className="flex items-start justify-between">
                           <div>
-                            <h4 className="font-medium text-card-foreground">
-                              {task.title}
-                            </h4>
+                            <h4 className="font-medium text-card-foreground">{task.title}</h4>
                             <span className="mt-1 inline-block rounded-full bg-dark-50 px-2 py-0.5 text-xs text-muted-foreground">
                               {task.category}
                             </span>
                           </div>
                           <div className="text-right">
-                            <div className="font-semibold text-yellow-400">
-                              {task.price}
-                            </div>
-                            <span className="text-xs text-muted-foreground">
-                              {task.status}
-                            </span>
+                            <div className="font-semibold text-yellow-400">{task.price}</div>
+                            <span className="text-xs text-muted-foreground">{task.status}</span>
                           </div>
                         </div>
                       </div>
@@ -239,27 +245,36 @@ export function Hero() {
                   </div>
                 </motion.div>
 
-                {/* Floating chat card */}
+                {/* Floating status card - FIXED: Increased z-index to 30 & adjusted position */}
+                <motion.div
+                  animate={{ y: [0, -15, 0] }}
+                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                  className="glass-card-light relative z-30 mt-8 mx-auto w-full max-w-xs lg:absolute lg:top-8 lg:-right-16 lg:mt-0 lg:w-auto rounded-2xl p-4"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-yellow-400">
+                      <svg className="h-6 w-6 text-dark-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <div>
+                      <div className="text-sm font-medium text-card-foreground">Task Completed</div>
+                      <div className="text-xs text-muted-foreground">2 minutes ago</div>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Floating chat card - Added negative margin for overlap on mobile */}
                 <motion.div
                   animate={{ y: [0, 10, 0] }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 1,
-                  }}
-                  // Fixed: relative on mobile (stacks below), absolute on desktop
-                  className="glass-card relative mt-6 mx-auto w-[90%] max-w-xs rounded-2xl p-4 lg:absolute lg:bottom-[-20px] lg:left-20 lg:translate-x-0 lg:mt-0 z-30"
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                  className="glass-card relative z-10 -mt-16 mx-auto w-[90%] max-w-xs rounded-2xl p-4 lg:absolute lg:bottom-[-20px] lg:left-20 lg:translate-x-0 lg:mt-0"
                 >
                   <div className="mb-3 flex items-center gap-3">
                     <div className="h-10 w-10 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600" />
                     <div>
-                      <div className="text-sm font-medium text-card-foreground">
-                        Priya Sharma
-                      </div>
-                      <div className="text-xs text-muted-foreground">
-                        Senior Designer • Online
-                      </div>
+                      <div className="text-sm font-medium text-card-foreground">Priya Sharma</div>
+                      <div className="text-xs text-muted-foreground">Senior Designer • Online</div>
                     </div>
                   </div>
                   <div className="rounded-lg bg-dark-100 p-3">
@@ -269,44 +284,6 @@ export function Hero() {
                   </div>
                 </motion.div>
 
-                {/* Floating status card */}
-                <motion.div
-                  animate={{ y: [0, -15, 0] }}
-                  transition={{
-                    duration: 5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 0.5,
-                  }}
-                  // Fixed: relative on mobile (stacks below), absolute on desktop
-                  className="glass-card-light relative mt-6 mx-auto lg:absolute lg:-right-10 lg:top-10 lg:mt-0 z-10 rounded-2xl p-4"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-yellow-400">
-                      <svg
-                        className="h-6 w-6 text-dark-400"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                    </div>
-                    <div>
-                      <div className="text-sm font-medium text-card-foreground">
-                        Task Completed
-                      </div>
-                      <div className="text-xs text-muted-foreground">
-                        2 minutes ago
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
               </div>
             </motion.div>
           </div>
