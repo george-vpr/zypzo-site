@@ -222,7 +222,7 @@ export function Hero() {
                   ease: "easeInOut",
                   delay: 1,
                 }}
-                className="glass-card absolute bottom-[-20px] left-1/2 -translate-x-1/2 lg:-left-20 lg:translate-x-0 z-30 w-[85%] max-w-xs rounded-2xl p-4"
+                className="glass-card relative mt-6 mx-auto w-[90%] max-w-xs rounded-2xl p-4 lg:absolute lg:bottom-[-20px] lg:left-20 lg:translate-x-0 z-30"
               >
                 <div className="mb-3 flex items-center gap-3">
                   <div className="h-10 w-10 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600" />
