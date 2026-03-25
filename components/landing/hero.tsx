@@ -147,7 +147,7 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="relative block mt-10 lg:mt-0"
           >
-            <div className="relative">
+            <div className="relative flex justify-center lg:block">
               {/* Main card */}
               <motion.div
                 animate={{ y: [0, -10, 0] }}
