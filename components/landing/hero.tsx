@@ -14,7 +14,8 @@ export function Hero() {
       <div className="absolute top-1/4 -left-1/4 h-[600px] w-[600px] rounded-full bg-yellow-400/10 blur-[120px]" />
       <div className="absolute bottom-0 right-0 h-[400px] w-[400px] rounded-full bg-yellow-400/5 blur-[100px]" />
 
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="relative w-full px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl">
         {/* Navigation */}
         <nav className="flex items-center justify-between py-6">
           <motion.div
@@ -221,7 +222,7 @@ export function Hero() {
                   ease: "easeInOut",
                   delay: 1,
                 }}
-                className="glass-card absolute bottom-[-20px] left-1/2 -translate-x-1/2 lg:-left-20 lg:translate-x-0 z-30 w-72 rounded-2xl p-4"
+                className="glass-card absolute bottom-[-20px] left-1/2 -translate-x-1/2 lg:-left-20 lg:translate-x-0 z-30 w-[85%] max-w-xs rounded-2xl p-4"
               >
                 <div className="mb-3 flex items-center gap-3">
                   <div className="h-10 w-10 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600" />
