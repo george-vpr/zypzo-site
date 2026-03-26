@@ -36,12 +36,13 @@ export function HowItWorks() {
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         {/* Section header */}
+        {/* Added text-center for mobile, md:text-left for desktop */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-20"
+          className="mb-20 text-center md:text-left"
         >
           <span className="text-sm font-medium uppercase tracking-wider text-yellow-400">
             How it works
@@ -63,9 +64,11 @@ export function HowItWorks() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <div className="glass-card group relative h-full rounded-3xl p-8 transition-all duration-300 hover:border-yellow-400/30 hover:bg-yellow-400/5">
+              {/* Added text-center for mobile, md:text-left for desktop */}
+              <div className="glass-card group relative h-full rounded-3xl p-8 transition-all duration-300 hover:border-yellow-400/30 hover:bg-yellow-400/5 text-center md:text-left">
                 {/* Number badge */}
-                <div className="mb-6 inline-flex items-center justify-center rounded-2xl bg-yellow-400/10 p-4">
+                {/* Added mx-auto for mobile, md:mx-0 for desktop */}
+                <div className="mb-6 inline-flex items-center justify-center rounded-2xl bg-yellow-400/10 p-4 mx-auto md:mx-0">
                   <step.icon className="h-6 w-6 text-yellow-400" />
                 </div>
 
@@ -83,7 +86,8 @@ export function HowItWorks() {
                 </p>
 
                 {/* Hover indicator */}
-                <div className="mt-6 flex items-center gap-2 text-sm font-medium text-yellow-400 opacity-0 transition-opacity group-hover:opacity-100">
+                {/* Added justify-center for mobile, md:justify-start for desktop */}
+                <div className="mt-6 flex items-center gap-2 text-sm font-medium text-yellow-400 opacity-0 transition-opacity group-hover:opacity-100 justify-center md:justify-start">
                   Learn more
                   <svg
                     className="h-4 w-4"
