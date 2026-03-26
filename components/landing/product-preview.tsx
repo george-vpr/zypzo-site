@@ -1,13 +1,13 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { MessageSquare, Star, Clock, CheckCircle2 } from "lucide-react"
+import { MessageSquare, Star, Clock, CheckCircle2, Search } from "lucide-react" // Added Search icon
 
 export function ProductPreview() {
   return (
-    <section className="relative overflow-hidden py-32">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-dark-400 via-dark-300 to-dark-400" />
+    <section className="relative py-32"> {/* Removed overflow-hidden to allow floating cards to be visible */}
+      {/* Background - Added overflow-hidden here to contain background blurs */}
+      <div className="absolute inset-0 overflow-hidden bg-gradient-to-b from-dark-400 via-dark-300 to-dark-400" />
       <div className="absolute bottom-0 right-0 h-[600px] w-[600px] rounded-full bg-yellow-400/10 blur-[150px]" />
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
@@ -38,24 +38,27 @@ export function ProductPreview() {
             transition={{ duration: 0.7 }}
             className="glass-card glow-yellow mx-auto max-w-5xl rounded-3xl p-6 lg:p-8"
           >
-            {/* Header */}
-            <div className="mb-6 flex items-center justify-between border-b border-border pb-6">
-              <div className="flex items-center gap-4">
-                <div className="h-10 w-10 rounded-xl bg-yellow-400" />
-                <div>
-                  <h3 className="font-semibold text-card-foreground">
+            {/* Header - Fixed for Mobile */}
+            <div className="mb-6 flex items-center justify-between border-b border-border pb-6 gap-4">
+              <div className="flex items-center gap-3 min-w-0">
+                {/* Added flex-shrink-0 to prevent squeezing */}
+                <div className="h-10 w-10 rounded-xl bg-yellow-400 flex-shrink-0" />
+                <div className="min-w-0">
+                  <h3 className="font-semibold text-card-foreground truncate">
                     Dashboard
                   </h3>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-muted-foreground truncate">
                     Welcome back, Arjun
                   </p>
                 </div>
               </div>
-              <div className="flex items-center gap-3">
-                <div className="rounded-lg bg-dark-100 px-4 py-2 text-sm text-muted-foreground">
-                  Search tasks...
-                </div>
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 text-sm font-semibold text-dark-400">
+              <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+                {/* Replaced Search Input with Icon Button for mobile space */}
+                <button className="flex h-10 w-10 items-center justify-center rounded-full bg-dark-100 text-muted-foreground hover:text-yellow-400 transition-colors">
+                  <Search className="h-5 w-5" />
+                </button>
+                {/* Avatar - Added flex-shrink-0 */}
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 text-sm font-semibold text-dark-400 flex-shrink-0">
                   A
                 </div>
               </div>
@@ -200,11 +203,17 @@ export function ProductPreview() {
             </div>
           </motion.div>
 
-          {/* Floating elements */}
+          {/* Floating elements - Desktop & Mobile Handling */}
+          
+          {/* Payment Received Card */}
           <motion.div
             animate={{ y: [0, -15, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-            className="glass-card absolute -left-10 top-20 hidden rounded-2xl p-4 lg:block"
+            // Desktop: -left-10 (outside), Mobile: bottom-[-20px] (stacked below)
+            className="glass-card absolute z-20 
+                       left-4 right-4 bottom-[-20px] translate-y-full
+                       lg:left-[-40px] lg:right-auto lg:bottom-auto lg:top-20 lg:translate-y-0 
+                       rounded-2xl p-4"
           >
             <div className="flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-500/20">
@@ -221,6 +230,7 @@ export function ProductPreview() {
             </div>
           </motion.div>
 
+          {/* New Review Card */}
           <motion.div
             animate={{ y: [0, 10, 0] }}
             transition={{
@@ -229,7 +239,11 @@ export function ProductPreview() {
               ease: "easeInOut",
               delay: 1,
             }}
-            className="glass-card absolute -right-10 bottom-20 hidden rounded-2xl p-4 lg:block"
+            // Desktop: -right-10 (outside), Mobile: bottom-[-90px] (stacked below first card)
+            className="glass-card absolute z-20 
+                       left-4 right-4 bottom-[-90px] translate-y-full
+                       lg:left-auto lg:right-[-40px] lg:bottom-20 lg:top-auto lg:translate-y-0 
+                       rounded-2xl p-4"
           >
             <div className="flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-yellow-400">
