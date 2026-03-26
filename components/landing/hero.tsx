@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { ArrowRight, Sparkles, Menu, X } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link" // Added Link import
 import { useState } from "react"
 
 export function Hero() {
@@ -23,15 +24,17 @@ export function Hero() {
           {/* Navigation */}
           <nav className="flex items-center justify-between py-6 relative z-50">
             
-            {/* Logo (Left) */}
+            {/* Logo (Left) - Now Clickable */}
             <div className="flex items-center flex-shrink-0">
-              <Image
-                src="/zypzo-yellow-logo.png"
-                alt="Zypzo"
-                width={120}
-                height={40}
-                className="h-10 w-auto"
-              />
+              <Link href="/" className="cursor-pointer">
+                <Image
+                  src="/zypzo-yellow-logo.png"
+                  alt="Zypzo"
+                  width={120}
+                  height={40}
+                  className="h-10 w-auto"
+                />
+              </Link>
             </div>
 
             {/* Desktop Navigation (Right) */}
@@ -165,7 +168,6 @@ export function Hero() {
             </div>
 
             {/* Right side - Product mockup */}
-            {/* FIX: Removed lg:translate-x-8 to push cards left and prevent right-side cut-off */}
             <div className="relative w-full flex flex-col items-center lg:block mt-10 lg:mt-0 pb-20 pt-16 lg:pt-8">
               
               <div className="relative w-full max-w-md mx-auto lg:max-w-none">
