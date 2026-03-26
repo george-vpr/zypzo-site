@@ -165,13 +165,8 @@ export function Hero() {
             </div>
 
             {/* Right side - Product mockup */}
-            {/* REMOVED OPACITY TRANSITION - Now slides in solid */}
-            <motion.div
-              initial={{ x: 50 }}
-              animate={{ x: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="relative w-full flex flex-col items-center lg:block mt-10 lg:mt-0 pb-20 pt-16 lg:pt-8 lg:translate-x-8"
-            >
+            {/* FIX: Removed slide animation. Now renders immediately in place. */}
+            <div className="relative w-full flex flex-col items-center lg:block mt-10 lg:mt-0 pb-20 pt-16 lg:pt-8 lg:translate-x-8">
               
               <div className="relative w-full max-w-md mx-auto lg:max-w-none">
                 
@@ -260,7 +255,7 @@ export function Hero() {
                 </motion.div>
 
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>
