@@ -23,7 +23,7 @@ export function Hero() {
           {/* Navigation */}
           <nav className="flex items-center justify-between py-6 relative z-50">
             
-            {/* Logo (Left) - Flex wrapper ensures vertical centering */}
+            {/* Logo (Left) */}
             <div className="flex items-center flex-shrink-0">
               <Image
                 src="/zypzo-yellow-logo.png"
@@ -53,12 +53,12 @@ export function Hero() {
               </button>
             </div>
 
-            {/* Mobile Hamburger (Right) - Fixed dimensions for perfect alignment */}
+            {/* Mobile Hamburger (Right) - Added Yellow Circle Border */}
             <button 
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="flex md:hidden h-10 w-10 items-center justify-center text-card-foreground hover:text-yellow-400 transition-colors"
+              className="flex md:hidden h-10 w-10 items-center justify-center rounded-full border-2 border-yellow-400 text-yellow-400 hover:bg-yellow-400/10 transition-colors"
             >
-              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </nav>
 
@@ -165,18 +165,17 @@ export function Hero() {
             </div>
 
             {/* Right side - Product mockup */}
+            {/* MOVED RIGHT: Added lg:translate-x-12 to shift the entire section right */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="relative w-full flex flex-col items-center lg:block mt-10 lg:mt-0 pb-10"
+              className="relative w-full flex flex-col items-center lg:block mt-10 lg:mt-0 pb-10 lg:translate-x-12"
             >
               
               <div className="relative w-full max-w-md mx-auto lg:max-w-none">
                 
                 {/* 1. Main Active Tasks Card (Base Layer) */}
-                {/* Mobile: Order 1 (First in DOM) */}
-                {/* Desktop: Relative Center, z-10 */}
                 <motion.div
                   animate={{ y: [0, -10, 0] }}
                   transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
@@ -215,13 +214,13 @@ export function Hero() {
                   </div>
                 </motion.div>
 
-                {/* 2. Task Completed Card (Top Right Overlap) */}
-                {/* Mobile: Order 2, Aligned Right, Pulled Up. Reveals Title on Left. */}
-                {/* Desktop: Absolute Top Right with inset for premium look */}
+                {/* 2. Task Completed Card */}
+                {/* Mobile: Top Right Overlap (Raised back up) */}
+                {/* Desktop: Absolute Top Right (Edge aligned) */}
                 <motion.div
                   animate={{ y: [0, -15, 0] }}
                   transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                  className="glass-card-light relative z-20 order-2 lg:order-none -mt-16 lg:mt-0 ml-auto mr-4 w-[85%] max-w-xs lg:absolute lg:top-6 lg:right-6 lg:w-auto rounded-2xl p-4"
+                  className="glass-card-light relative z-20 order-2 lg:order-none ml-auto mr-2 -mt-24 lg:mt-0 w-[85%] max-w-xs lg:absolute lg:top-4 lg:right-4 lg:w-auto rounded-2xl p-4"
                 >
                   <div className="flex items-center gap-3">
                     <div className="flex h-12 w-12 items-center justify-center rounded-full bg-yellow-400">
@@ -236,13 +235,13 @@ export function Hero() {
                   </div>
                 </motion.div>
 
-                {/* 3. Priya Sharma Card (Bottom Left Overlap) */}
-                {/* Mobile: Order 3, Aligned Left, Pulled Up. */}
-                {/* Desktop: Absolute Bottom Left with inset for premium look */}
+                {/* 3. Priya Sharma Card */}
+                {/* Mobile: Bottom Left Overlap */}
+                {/* Desktop: Absolute Bottom Left (Edge aligned) */}
                 <motion.div
                   animate={{ y: [0, 10, 0] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                  className="glass-card relative z-20 order-3 lg:order-none -mt-12 lg:mt-0 mr-auto ml-4 w-[90%] max-w-xs lg:absolute lg:bottom-6 lg:left-6 lg:w-auto rounded-2xl p-4"
+                  className="glass-card relative z-20 order-3 lg:order-none mr-auto ml-2 -mt-12 lg:mt-0 w-[90%] max-w-xs lg:absolute lg:bottom-4 lg:left-4 lg:w-auto rounded-2xl p-4"
                 >
                   <div className="mb-3 flex items-center gap-3">
                     <div className="h-10 w-10 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600" />
