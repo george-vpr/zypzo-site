@@ -51,7 +51,8 @@ export function Features() {
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         {/* Section header - asymmetric */}
-        <div className="mb-20 grid items-end gap-8 lg:grid-cols-2">
+        {/* Added text-center for mobile, md:text-left for tablet/desktop */}
+        <div className="mb-20 grid items-end gap-8 lg:grid-cols-2 text-center md:text-left">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -73,7 +74,7 @@ export function Features() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="max-w-md text-lg text-muted-foreground lg:text-right"
+            className="max-w-md text-lg text-muted-foreground text-center lg:text-right mx-auto lg:mx-0"
           >
             Powerful tools that make finding, hiring, and managing professionals
             seamless.
@@ -93,8 +94,10 @@ export function Features() {
                 index === 0 ? "lg:col-span-2" : ""
               } ${index === 3 ? "lg:col-span-2" : ""}`}
             >
-              <div className="glass-card h-full rounded-3xl p-8 transition-all duration-300 hover:border-yellow-400/30 hover:bg-yellow-400/5">
-                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-yellow-400/10 transition-colors group-hover:bg-yellow-400/20">
+              {/* Added text-center for mobile, md:text-left for tablet/desktop */}
+              <div className="glass-card h-full rounded-3xl p-8 transition-all duration-300 hover:border-yellow-400/30 hover:bg-yellow-400/5 text-center md:text-left">
+                {/* Added mx-auto for mobile, md:mx-0 for tablet/desktop */}
+                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-yellow-400/10 transition-colors group-hover:bg-yellow-400/20 mx-auto md:mx-0">
                   <feature.icon className="h-7 w-7 text-yellow-400" />
                 </div>
 
