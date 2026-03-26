@@ -2,12 +2,14 @@
 
 import { motion } from "framer-motion"
 import Image from "next/image"
+import Link from "next/link" // Added Link
+import { Instagram, Linkedin } from "lucide-react" // Added specific icons
 
 const footerLinks = {
   Product: ["Features", "Pricing", "How it works", "Reviews"],
   Company: ["About", "Careers", "Blog", "Press"],
   Resources: ["Help Center", "Community", "Tutorials", "API Docs"],
-  Legal: ["Privacy", "Terms", "Cookies", "Licenses"],
+  // Removed Legal section as requested
 }
 
 export function Footer() {
@@ -21,36 +23,40 @@ export function Footer() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="lg:col-span-2"
+            // Centered on mobile, left on desktop
+            className="lg:col-span-2 text-center lg:text-left"
           >
-            <Image
-  src="/zypzo-yellow-logo.png"
-  alt="Zypzo"
-  width={100}
-  height={32}
-  className="h-8 w-auto"
-/>
-            <p className="mt-4 max-w-xs text-muted-foreground">
+            <Link href="/" className="inline-block">
+              <Image
+                src="/zypzo-yellow-logo.png"
+                alt="Zypzo"
+                width={100}
+                height={32}
+                className="h-8 w-auto mx-auto lg:mx-0" // Centered image on mobile
+              />
+            </Link>
+            <p className="mt-4 max-w-xs mx-auto lg:mx-0 text-muted-foreground">
               From task to done. Find skilled professionals across India
               instantly.
             </p>
-            <div className="mt-6 flex gap-4">
-              {["twitter", "linkedin", "github", "instagram"].map((social) => (
-                <a
-                  key={social}
-                  href="#"
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-dark-100 text-muted-foreground transition-all hover:bg-yellow-400 hover:text-dark-400"
-                >
-                  <span className="sr-only">{social}</span>
-                  <svg
-                    className="h-5 w-5"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
-                  </svg>
-                </a>
-              ))}
+            {/* Centered icons on mobile */}
+            <div className="mt-6 flex gap-4 justify-center lg:justify-start">
+              {/* LinkedIn */}
+              <a
+                href="#"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-dark-100 text-muted-foreground transition-all hover:bg-yellow-400 hover:text-dark-400"
+                aria-label="LinkedIn"
+              >
+                <Linkedin className="h-5 w-5" />
+              </a>
+              {/* Instagram */}
+              <a
+                href="#"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-dark-100 text-muted-foreground transition-all hover:bg-yellow-400 hover:text-dark-400"
+                aria-label="Instagram"
+              >
+                <Instagram className="h-5 w-5" />
+              </a>
             </div>
           </motion.div>
 
@@ -62,6 +68,8 @@ export function Footer() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
+              // Centered on mobile, left on desktop
+              className="text-center lg:text-left"
             >
               <h4 className="mb-4 font-semibold text-card-foreground">
                 {category}
@@ -88,7 +96,7 @@ export function Footer() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 md:flex-row"
+          className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 md:flex-row text-center md:text-left"
         >
           <p className="text-sm text-muted-foreground">
             © 2026 Zypzo. All rights reserved.
