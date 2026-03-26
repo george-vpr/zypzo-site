@@ -1,12 +1,12 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { MessageSquare, Star, Clock, CheckCircle2, Search } from "lucide-react" // Added Search icon
+import { MessageSquare, Star, Clock, CheckCircle2, Search } from "lucide-react"
 
 export function ProductPreview() {
   return (
-    <section className="relative py-32"> {/* Removed overflow-hidden to allow floating cards to be visible */}
-      {/* Background - Added overflow-hidden here to contain background blurs */}
+    <section className="relative py-32 pt-20 lg:pt-32"> {/* Added pt-20 for mobile top breathing room */}
+      {/* Background */}
       <div className="absolute inset-0 overflow-hidden bg-gradient-to-b from-dark-400 via-dark-300 to-dark-400" />
       <div className="absolute bottom-0 right-0 h-[600px] w-[600px] rounded-full bg-yellow-400/10 blur-[150px]" />
 
@@ -41,7 +41,6 @@ export function ProductPreview() {
             {/* Header - Fixed for Mobile */}
             <div className="mb-6 flex items-center justify-between border-b border-border pb-6 gap-4">
               <div className="flex items-center gap-3 min-w-0">
-                {/* Added flex-shrink-0 to prevent squeezing */}
                 <div className="h-10 w-10 rounded-xl bg-yellow-400 flex-shrink-0" />
                 <div className="min-w-0">
                   <h3 className="font-semibold text-card-foreground truncate">
@@ -53,11 +52,9 @@ export function ProductPreview() {
                 </div>
               </div>
               <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-                {/* Replaced Search Input with Icon Button for mobile space */}
                 <button className="flex h-10 w-10 items-center justify-center rounded-full bg-dark-100 text-muted-foreground hover:text-yellow-400 transition-colors">
                   <Search className="h-5 w-5" />
                 </button>
-                {/* Avatar - Added flex-shrink-0 */}
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 text-sm font-semibold text-dark-400 flex-shrink-0">
                   A
                 </div>
@@ -203,16 +200,19 @@ export function ProductPreview() {
             </div>
           </motion.div>
 
-          {/* Floating elements - Desktop & Mobile Handling */}
+          {/* Floating elements */}
           
           {/* Payment Received Card */}
           <motion.div
             animate={{ y: [0, -15, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-            // Desktop: -left-10 (outside), Mobile: bottom-[-20px] (stacked below)
+            /* 
+               Mobile: Top Left (-top-[-30px] = 30px above container, left-4)
+               Desktop: Inside Top Left (top-20, left-4) - Moved inside to prevent cut-off
+            */
             className="glass-card absolute z-20 
-                       left-4 right-4 bottom-[-20px] translate-y-full
-                       lg:left-[-40px] lg:right-auto lg:bottom-auto lg:top-20 lg:translate-y-0 
+                       left-4 top-[-30px] right-auto bottom-auto
+                       lg:top-20 lg:left-4 
                        rounded-2xl p-4"
           >
             <div className="flex items-center gap-3">
@@ -239,10 +239,13 @@ export function ProductPreview() {
               ease: "easeInOut",
               delay: 1,
             }}
-            // Desktop: -right-10 (outside), Mobile: bottom-[-90px] (stacked below first card)
+            /* 
+               Mobile: Bottom Right (bottom-[-30px] = 30px below container, right-4)
+               Desktop: Inside Bottom Right (bottom-20, right-4) - Moved inside to prevent cut-off
+            */
             className="glass-card absolute z-20 
-                       left-4 right-4 bottom-[-90px] translate-y-full
-                       lg:left-auto lg:right-[-40px] lg:bottom-20 lg:top-auto lg:translate-y-0 
+                       right-4 bottom-[-30px] left-auto top-auto
+                       lg:bottom-20 lg:right-4 
                        rounded-2xl p-4"
           >
             <div className="flex items-center gap-3">
