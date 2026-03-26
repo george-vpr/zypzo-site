@@ -53,7 +53,7 @@ export function Hero() {
               </button>
             </div>
 
-            {/* Mobile Hamburger (Right) - 2026 Bolder UI */}
+            {/* Mobile Hamburger (Right) */}
             <button 
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="flex md:hidden h-12 w-12 items-center justify-center rounded-full border-2 border-yellow-400 bg-yellow-400/10 backdrop-blur-sm transition-all hover:bg-yellow-400/20"
@@ -165,8 +165,8 @@ export function Hero() {
             </div>
 
             {/* Right side - Product mockup */}
-            {/* FIX: Removed slide animation. Now renders immediately in place. */}
-            <div className="relative w-full flex flex-col items-center lg:block mt-10 lg:mt-0 pb-20 pt-16 lg:pt-8 lg:translate-x-8">
+            {/* FIX: Removed lg:translate-x-8 to push cards left and prevent right-side cut-off */}
+            <div className="relative w-full flex flex-col items-center lg:block mt-10 lg:mt-0 pb-20 pt-16 lg:pt-8">
               
               <div className="relative w-full max-w-md mx-auto lg:max-w-none">
                 
