@@ -165,18 +165,17 @@ export function Hero() {
             </div>
 
             {/* Right side - Product mockup */}
+            {/* REMOVED OPACITY TRANSITION - Now slides in solid */}
             <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ x: 50 }}
+              animate={{ x: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              // Added lg:pt-8 to give breathing room for the raised card on desktop
               className="relative w-full flex flex-col items-center lg:block mt-10 lg:mt-0 pb-20 pt-16 lg:pt-8 lg:translate-x-8"
             >
               
               <div className="relative w-full max-w-md mx-auto lg:max-w-none">
                 
                 {/* 2. Task Completed Card */}
-                {/* FIX: Raised lg:top to -50px to clear the "3 pending" badge completely */}
                 <motion.div
                   animate={{ y: [0, -15, 0] }}
                   transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
@@ -238,8 +237,6 @@ export function Hero() {
                 </motion.div>
 
                 {/* 3. Priya Sharma Card */}
-                {/* Desktop: OUTSIDE Bottom Left (negative bottom/left) */}
-                {/* Mobile: Overlapping Bottom Left (absolute bottom-[-30px]) */}
                 <motion.div
                   animate={{ y: [0, 10, 0] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
