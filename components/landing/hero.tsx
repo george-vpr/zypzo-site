@@ -20,11 +20,11 @@ export function Hero() {
       <div className="relative w-full px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           
-          {/* Navigation - Fixed Layout: Logo Left, Links/Hamburger Right */}
+          {/* Navigation */}
           <nav className="flex items-center justify-between py-6 relative z-50">
             
-            {/* Logo (Left) */}
-            <div className="flex-shrink-0">
+            {/* Logo (Left) - Flex wrapper ensures vertical centering */}
+            <div className="flex items-center flex-shrink-0">
               <Image
                 src="/zypzo-yellow-logo.png"
                 alt="Zypzo"
@@ -53,16 +53,16 @@ export function Hero() {
               </button>
             </div>
 
-            {/* Mobile Hamburger (Right) */}
+            {/* Mobile Hamburger (Right) - Fixed dimensions for perfect alignment */}
             <button 
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="flex md:hidden p-2 text-card-foreground hover:text-yellow-400 transition-colors"
+              className="flex md:hidden h-10 w-10 items-center justify-center text-card-foreground hover:text-yellow-400 transition-colors"
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </nav>
 
-          {/* Mobile Menu Overlay - Visible on click */}
+          {/* Mobile Menu Overlay */}
           {isMenuOpen && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
@@ -172,38 +172,15 @@ export function Hero() {
               className="relative w-full flex flex-col items-center lg:block mt-10 lg:mt-0 pb-10"
             >
               
-              {/* Logic: We use a flex-col layout for mobile to stack them, and absolute positioning for desktop. */}
-              
               <div className="relative w-full max-w-md mx-auto lg:max-w-none">
                 
-                {/* 1. Task Completed Card (Top/Right) */}
-                {/* Mobile: Order 1 (Top), pulls bottom up to overlap */}
-                {/* Desktop: Absolute Top Right, z-20 to be above Active Tasks */}
-                <motion.div
-                  animate={{ y: [0, -15, 0] }}
-                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                  className="glass-card-light relative z-20 order-1 lg:order-none mb-[-40px] lg:mb-0 mx-auto w-[90%] max-w-xs lg:absolute lg:top-8 lg:right-0 lg:w-auto rounded-2xl p-4"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-yellow-400">
-                      <svg className="h-6 w-6 text-dark-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <div>
-                      <div className="text-sm font-medium text-card-foreground">Task Completed</div>
-                      <div className="text-xs text-muted-foreground">2 minutes ago</div>
-                    </div>
-                  </div>
-                </motion.div>
-
-                {/* 2. Main Active Tasks Card (Center) */}
-                {/* Mobile: Order 2 (Middle), lowest z-index so others overlap it */}
+                {/* 1. Main Active Tasks Card (Base Layer) */}
+                {/* Mobile: Order 1 (First in DOM) */}
                 {/* Desktop: Relative Center, z-10 */}
                 <motion.div
                   animate={{ y: [0, -10, 0] }}
                   transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                  className="glass-card glow-yellow relative z-10 order-2 lg:order-none rounded-3xl p-6 w-full mx-auto"
+                  className="glass-card glow-yellow relative z-10 order-1 lg:order-none rounded-3xl p-6 w-full mx-auto"
                 >
                   <div className="mb-4 flex items-center justify-between">
                     <span className="text-sm font-medium text-card-foreground">
@@ -238,13 +215,34 @@ export function Hero() {
                   </div>
                 </motion.div>
 
-                {/* 3. Priya Sharma Card (Bottom/Left) */}
-                {/* Mobile: Order 3 (Bottom), pulls top up to overlap */}
-                {/* Desktop: Absolute Bottom Left, z-20 to be above Active Tasks */}
+                {/* 2. Task Completed Card (Top Right Overlap) */}
+                {/* Mobile: Order 2, Aligned Right, Pulled Up. Reveals Title on Left. */}
+                {/* Desktop: Absolute Top Right with inset for premium look */}
+                <motion.div
+                  animate={{ y: [0, -15, 0] }}
+                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                  className="glass-card-light relative z-20 order-2 lg:order-none -mt-16 lg:mt-0 ml-auto mr-4 w-[85%] max-w-xs lg:absolute lg:top-6 lg:right-6 lg:w-auto rounded-2xl p-4"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-yellow-400">
+                      <svg className="h-6 w-6 text-dark-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <div>
+                      <div className="text-sm font-medium text-card-foreground">Task Completed</div>
+                      <div className="text-xs text-muted-foreground">2 minutes ago</div>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* 3. Priya Sharma Card (Bottom Left Overlap) */}
+                {/* Mobile: Order 3, Aligned Left, Pulled Up. */}
+                {/* Desktop: Absolute Bottom Left with inset for premium look */}
                 <motion.div
                   animate={{ y: [0, 10, 0] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                  className="glass-card relative z-20 order-3 lg:order-none mt-[-40px] lg:mt-0 mx-auto w-[90%] max-w-xs lg:absolute lg:bottom-8 lg:left-0 lg:w-auto rounded-2xl p-4"
+                  className="glass-card relative z-20 order-3 lg:order-none -mt-12 lg:mt-0 mr-auto ml-4 w-[90%] max-w-xs lg:absolute lg:bottom-6 lg:left-6 lg:w-auto rounded-2xl p-4"
                 >
                   <div className="mb-3 flex items-center gap-3">
                     <div className="h-10 w-10 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600" />
