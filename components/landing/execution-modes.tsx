@@ -33,7 +33,8 @@ export function ExecutionModes() {
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         {/* Section header - asymmetric */}
-        <div className="mb-20 grid items-end gap-8 lg:grid-cols-2">
+        {/* Added text-center for mobile, lg:text-left for desktop */}
+        <div className="mb-20 grid items-end gap-8 lg:grid-cols-2 text-center lg:text-left">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -84,9 +85,11 @@ export function ExecutionModes() {
                   )}
                 </div>
 
-                <div className="relative">
+                {/* Added text-center for mobile, md:text-left for desktop */}
+                <div className="relative text-center md:text-left">
                   {/* Icon */}
-                  <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-yellow-400/10 transition-all duration-300 group-hover:bg-yellow-400/20">
+                  {/* Added mx-auto for mobile, md:mx-0 for desktop */}
+                  <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-yellow-400/10 transition-all duration-300 group-hover:bg-yellow-400/20 mx-auto md:mx-0">
                     <mode.icon className="h-7 w-7 text-yellow-400" />
                   </div>
 
