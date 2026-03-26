@@ -68,9 +68,11 @@ export function WorkModes() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="group relative"
             >
-              <div className="glass-card h-full rounded-3xl p-8 transition-all duration-300 hover:border-yellow-400/30 hover:bg-yellow-400/5">
+              {/* Added text-center for mobile, md:text-left for desktop */}
+              <div className="glass-card h-full rounded-3xl p-8 transition-all duration-300 hover:border-yellow-400/30 hover:bg-yellow-400/5 text-center md:text-left">
                 {/* Icon */}
-                <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-yellow-400/10 transition-all duration-300 group-hover:bg-yellow-400 group-hover:shadow-lg group-hover:shadow-yellow-400/20">
+                {/* Added mx-auto for mobile, md:mx-0 for desktop */}
+                <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-yellow-400/10 transition-all duration-300 group-hover:bg-yellow-400 group-hover:shadow-lg group-hover:shadow-yellow-400/20 mx-auto md:mx-0">
                   <mode.icon className="h-8 w-8 text-yellow-400 transition-colors group-hover:text-dark-400" />
                 </div>
 
