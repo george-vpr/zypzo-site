@@ -53,12 +53,12 @@ export function Hero() {
               </button>
             </div>
 
-            {/* Mobile Hamburger (Right) - Added Yellow Circle Border */}
+            {/* Mobile Hamburger (Right) - 2026 Bolder UI */}
             <button 
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="flex md:hidden h-10 w-10 items-center justify-center rounded-full border-2 border-yellow-400 text-yellow-400 hover:bg-yellow-400/10 transition-colors"
+              className="flex md:hidden h-12 w-12 items-center justify-center rounded-full border-2 border-yellow-400 bg-yellow-400/10 backdrop-blur-sm transition-all hover:bg-yellow-400/20"
             >
-              {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              {isMenuOpen ? <X className="h-6 w-6 text-yellow-400" strokeWidth={3} /> : <Menu className="h-6 w-6 text-yellow-400" strokeWidth={3} />}
             </button>
           </nav>
 
@@ -67,7 +67,7 @@ export function Hero() {
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="absolute top-[88px] left-0 right-0 z-40 bg-dark-200/95 backdrop-blur-lg p-6 border-b border-border md:hidden shadow-2xl"
+              className="absolute top-[96px] left-0 right-0 z-40 bg-dark-200/95 backdrop-blur-lg p-6 border-b border-border md:hidden shadow-2xl"
             >
               <div className="flex flex-col gap-6">
                 <a href="#how-it-works" className="text-lg text-card-foreground hover:text-yellow-400" onClick={() => setIsMenuOpen(false)}>How it works</a>
@@ -165,21 +165,45 @@ export function Hero() {
             </div>
 
             {/* Right side - Product mockup */}
-            {/* MOVED RIGHT: Added lg:translate-x-12 to shift the entire section right */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="relative w-full flex flex-col items-center lg:block mt-10 lg:mt-0 pb-10 lg:translate-x-12"
+              // Added padding-top on mobile to allow "Task Completed" to sit above without being cut off
+              className="relative w-full flex flex-col items-center lg:block mt-10 lg:mt-0 pb-20 pt-16 lg:pt-0 lg:translate-x-8"
             >
               
               <div className="relative w-full max-w-md mx-auto lg:max-w-none">
                 
+                {/* 2. Task Completed Card */}
+                {/* Desktop: OUTSIDE Top Right (negative top/right) */}
+                {/* Mobile: OUTSIDE Top Right (absolute top-[-40px]) - Does not cover text */}
+                <motion.div
+                  animate={{ y: [0, -15, 0] }}
+                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                  className="glass-card-light absolute z-20 w-[85%] max-w-xs lg:w-auto
+                             right-0 top-[-40px] 
+                             lg:top-[-20px] lg:right-[-20px] 
+                             rounded-2xl p-4"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-yellow-400">
+                      <svg className="h-6 w-6 text-dark-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <div>
+                      <div className="text-sm font-medium text-card-foreground">Task Completed</div>
+                      <div className="text-xs text-muted-foreground">2 minutes ago</div>
+                    </div>
+                  </div>
+                </motion.div>
+
                 {/* 1. Main Active Tasks Card (Base Layer) */}
                 <motion.div
                   animate={{ y: [0, -10, 0] }}
                   transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                  className="glass-card glow-yellow relative z-10 order-1 lg:order-none rounded-3xl p-6 w-full mx-auto"
+                  className="glass-card glow-yellow relative z-10 rounded-3xl p-6 w-full mx-auto"
                 >
                   <div className="mb-4 flex items-center justify-between">
                     <span className="text-sm font-medium text-card-foreground">
@@ -214,34 +238,16 @@ export function Hero() {
                   </div>
                 </motion.div>
 
-                {/* 2. Task Completed Card */}
-                {/* Mobile: Top Right Overlap (Raised back up) */}
-                {/* Desktop: Absolute Top Right (Edge aligned) */}
-                <motion.div
-                  animate={{ y: [0, -15, 0] }}
-                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                  className="glass-card-light relative z-20 order-2 lg:order-none ml-auto mr-2 -mt-24 lg:mt-0 w-[85%] max-w-xs lg:absolute lg:top-4 lg:right-4 lg:w-auto rounded-2xl p-4"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-yellow-400">
-                      <svg className="h-6 w-6 text-dark-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <div>
-                      <div className="text-sm font-medium text-card-foreground">Task Completed</div>
-                      <div className="text-xs text-muted-foreground">2 minutes ago</div>
-                    </div>
-                  </div>
-                </motion.div>
-
                 {/* 3. Priya Sharma Card */}
-                {/* Mobile: Bottom Left Overlap */}
-                {/* Desktop: Absolute Bottom Left (Edge aligned) */}
+                {/* Desktop: OUTSIDE Bottom Left (negative bottom/left) */}
+                {/* Mobile: Overlapping Bottom Left (absolute bottom-[-30px]) */}
                 <motion.div
                   animate={{ y: [0, 10, 0] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                  className="glass-card relative z-20 order-3 lg:order-none mr-auto ml-2 -mt-12 lg:mt-0 w-[90%] max-w-xs lg:absolute lg:bottom-4 lg:left-4 lg:w-auto rounded-2xl p-4"
+                  className="glass-card absolute z-20 w-[90%] max-w-xs lg:w-auto
+                             left-4 bottom-[-30px] 
+                             lg:bottom-[-20px] lg:left-[-20px] 
+                             rounded-2xl p-4"
                 >
                   <div className="mb-3 flex items-center gap-3">
                     <div className="h-10 w-10 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600" />
