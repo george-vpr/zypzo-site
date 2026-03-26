@@ -46,11 +46,13 @@ export function BuildWithoutHiring() {
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid items-center gap-16 lg:grid-cols-2">
           {/* Left side - Content */}
+          {/* Added text-center for mobile, lg:text-left for desktop */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
+            className="text-center lg:text-left"
           >
             <span className="text-sm font-medium uppercase tracking-wider text-yellow-400">
               The Zypzo advantage
@@ -60,18 +62,19 @@ export function BuildWithoutHiring() {
               <br />
               <span className="text-yellow-400">hiring full-time</span>
             </h2>
-            <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground">
+            <p className="mt-6 max-w-lg mx-auto lg:mx-0 text-lg leading-relaxed text-muted-foreground">
               Stop the endless cycle of hiring, training, and managing full-time employees.
               Access skilled professionals exactly when you need them.
             </p>
 
             {/* CTA */}
+            {/* Added flex justify-center for mobile, lg:justify-start for desktop */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="mt-10"
+              className="mt-10 flex justify-center lg:justify-start"
             >
               <button className="group flex items-center gap-2 rounded-full bg-yellow-400 px-7 py-4 text-base font-semibold text-dark-400 transition-all hover:bg-yellow-300 hover:shadow-xl hover:shadow-yellow-400/20">
                 Start building your team
@@ -103,8 +106,10 @@ export function BuildWithoutHiring() {
                 transition={{ duration: 0.4, delay: index * 0.08 }}
                 className="group"
               >
-                <div className="glass-card h-full rounded-2xl p-6 transition-all duration-300 hover:border-yellow-400/30 hover:bg-yellow-400/5">
-                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-yellow-400/10 transition-colors group-hover:bg-yellow-400/20">
+                {/* Added text-center for mobile, sm:text-left for tablet/desktop */}
+                <div className="glass-card h-full rounded-2xl p-6 transition-all duration-300 hover:border-yellow-400/30 hover:bg-yellow-400/5 text-center sm:text-left">
+                  {/* Added mx-auto for mobile, sm:mx-0 for tablet/desktop */}
+                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-yellow-400/10 transition-colors group-hover:bg-yellow-400/20 mx-auto sm:mx-0">
                     <benefit.icon className="h-5 w-5 text-yellow-400" />
                   </div>
                   <h3 className="mb-1 font-semibold text-card-foreground">
