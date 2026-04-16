@@ -143,30 +143,6 @@ export function Hero() {
                 </button>
               </motion.div>
 
-              {/* Stats */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-                className="mt-16 flex flex-wrap justify-center lg:justify-start gap-8 sm:gap-12"
-              >
-                {[
-                  { value: "50K+", label: "Professionals" },
-                  { value: "120K+", label: "Tasks completed" },
-                  { value: "4.9", label: "Average rating" },
-                ].map((stat) => (
-                  <div key={stat.label}>
-                    <div className="text-2xl font-bold text-yellow-400 md:text-3xl">
-                      {stat.value}
-                    </div>
-                    <div className="mt-1 text-sm text-muted-foreground">
-                      {stat.label}
-                    </div>
-                  </div>
-                ))}
-              </motion.div>
-            </div>
-
             {/* Right side - Product mockup */}
             <div className="relative w-full flex flex-col items-center lg:block mt-10 lg:mt-0 pb-20 pt-16 lg:pt-8">
               
