@@ -95,7 +95,7 @@ export function Hero() {
               >
                 <Sparkles className="h-4 w-4 text-yellow-400" />
                 <span className="text-sm text-yellow-400">
-                  Trusted by 10,000+ businesses
+                  Built for builders
                 </span>
               </motion.div>
 
